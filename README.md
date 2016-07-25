@@ -5,7 +5,7 @@
 Continuation local storage for Rill.
 Keeps track of the current request context and makes it available in all of your functions (even async ones!).
 
-Uses [continuation-local-storage](https://github.com/othiym23/node-continuation-local-storage) in Node and [Zone.js](https://github.com/angular/zone.js/) in the browser.
+Uses [continuation-local-storage](https://github.com/othiym23/node-continuation-local-storage) in node and [Zone.js](https://github.com/angular/zone.js/) in the browser.
 
 # Installation
 
@@ -69,24 +69,26 @@ module.exports = async function () {
 
 ```javascript
 app.use(active())
----
+```
 
 + **active.get(key: String)** : Pulls out a `dot-notation` key from the active request context.
 
 ```javascript
 active.get('req.href')
----
+```
 
 + **active.set(key: String, val: Any)** : Sets a `dot-notation` key on the active request context.
 
 ```javascript
 active.set('locals.title', 'some title')
----
+```
 
 + **active.has(key: String)** : Checks if a key exists on the active request context.
 
 ```javascript
 active.has('locals.title') // true
+```
+
 ---
 
 ### Contributions
