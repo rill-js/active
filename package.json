@@ -1,7 +1,7 @@
 {
   "name": "@rill/active",
   "description": "Get the active Rill context using continuation local storage.",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "author": "Dylan Piercey <pierceydylan@gmail.com>",
   "browser": "client/index.js",
   "bugs": "https://github.com/rill-js/active/issues",

@@ -45,11 +45,3 @@ module.exports.has = function (key) {
 module.exports.set = function (key, val) {
   return prop.set(ns.get('ctx'), key, val)
 }
-
-/**
- * Ensures that a function is bound to the @rill/active namespace.
- */
-module.exports.bind = function (fn) {
-  if (typeof fn === 'function') return ns.bind(fn)
-  throw new TypeError('@rill/active#bind: Can only bind functions.')
-}

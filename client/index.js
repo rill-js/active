@@ -42,11 +42,3 @@ module.exports.has = function (key) {
 module.exports.set = function (key, val) {
   return prop.set(Zone.current[NAMESPACE], key, val)
 }
-
-/**
- * Zone.js has no #bind method currently so this is just an 'is function' check.
- */
-module.exports.bind = function (fn) {
-  if (typeof fn === 'function') return fn
-  throw new TypeError('@rill/active#bind: Can only bind functions.')
-}

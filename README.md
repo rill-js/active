@@ -89,20 +89,6 @@ active.set('locals.title', 'some title')
 active.has('locals.title') // true
 ```
 
-+ **active.bind(fn: Function)** : Binds a function to the @rill/active namespace.
-
-```javascript
-// Use this when some custom async function is not being tracked.
-// By default only nodejs core methods and timers are tracked.
-
-MyDB.on('change', active.bind(function (doc) {
-	// Hypothetical api where the db may fire change events.
-	// Sometimes you still want the context here.
-
-	active.get('locals.title') // WooHoo!
-}))
-```
-
 ---
 
 ### Contributions
