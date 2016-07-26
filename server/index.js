@@ -1,6 +1,5 @@
 'use strict'
 
-// TODO: warn on missing context
 var NAMESPACE = '@rill/active'
 var prop = require('dot-prop')
 var createNamespace = require('continuation-local-storage').createNamespace
@@ -12,6 +11,8 @@ var ns = createNamespace(NAMESPACE)
  */
 module.exports = function () {
   return function activeMiddleware (ctx, next) {
+    ns.bindEmitter(ctx.req.original)
+    ns.bindEmitter(ctx.res.original)
     return new Promise(function (resolve) {
       ns.run(function () {
         ns.set('ctx', ctx)
@@ -43,6 +44,14 @@ module.exports.has = function (key) {
  */
 module.exports.set = function (key, val) {
   return prop.set(getContext(), key, val)
+}
+
+/**
+ * Ensures that a function is bound to the @rill/active namespace.
+ */
+module.exports.bind = function (fn) {
+  if (typeof fn === 'function') return ns.bind(fn)
+  throw new TypeError('@rill/active#bind: Can only bind functions.')
 }
 
 /**

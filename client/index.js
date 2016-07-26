@@ -44,6 +44,14 @@ module.exports.set = function (key, val) {
 }
 
 /**
+ * Zone.js has no #bind method currently so this is just an 'is function' check.
+ */
+module.exports.bind = function (fn) {
+  if (typeof fn === 'function') return fn
+  throw new TypeError('@rill/active#bind: Can only bind functions.')
+}
+
+/**
  * Pull the current context out of the current zone and warn if it is missing.
  */
 function getContext () {
