@@ -29,21 +29,21 @@ module.exports.namespace = NAMESPACE
  * Get a value off of the current request context.
  */
 module.exports.get = function (key) {
-  return prop.get(getContext(), key)
+  return prop.get(ns.get('ctx'), key)
 }
 
 /**
  * Check if a value exists on the current request context.
  */
 module.exports.has = function (key) {
-  return prop.has(getContext(), key)
+  return prop.has(ns.get('ctx'), key)
 }
 
 /**
  * Set a value on the current request context.
  */
 module.exports.set = function (key, val) {
-  return prop.set(getContext(), key, val)
+  return prop.set(ns.get('ctx'), key, val)
 }
 
 /**
@@ -52,13 +52,4 @@ module.exports.set = function (key, val) {
 module.exports.bind = function (fn) {
   if (typeof fn === 'function') return ns.bind(fn)
   throw new TypeError('@rill/active#bind: Can only bind functions.')
-}
-
-/**
- * Pull the current context out of the current namespace and warn if it is missing.
- */
-function getContext () {
-  var ctx = ns.get('ctx')
-  if (!ctx) console.warn('Could not retrieve context, no active request.')
-  return ctx
 }
