@@ -34,7 +34,6 @@ Uses [continuation-local-storage](https://github.com/othiym23/node-continuation-
 
 # Installation
 
-#### Npm
 ```console
 npm install @rill/active
 ```
