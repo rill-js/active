@@ -25,20 +25,29 @@ module.exports.namespace = NAMESPACE
 /**
  * Get a value off of the current request context.
  */
-module.exports.get = function (key) {
-  return prop.get(Zone.current[NAMESPACE], key)
+module.exports.get = function (key, alt) {
+  return prop.get(getCtx(), key, alt)
 }
 
 /**
  * Check if a value exists on the current request context.
  */
 module.exports.has = function (key) {
-  return prop.has(Zone.current[NAMESPACE], key)
+  return prop.has(getCtx(), key)
 }
 
 /**
  * Set a value on the current request context.
  */
 module.exports.set = function (key, val) {
-  return prop.set(Zone.current[NAMESPACE], key, val)
+  return prop.set(getCtx(), key, val)
+}
+
+/**
+ * Returns the active context in Zone.js
+ */
+function getCtx () {
+  var ctx = Zone.current[NAMESPACE]
+  if (!ctx) throw new Error('@rill/active: No active request running, could not retreive context.')
+  return ctx
 }

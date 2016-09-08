@@ -1,9 +1,8 @@
 'use strict'
 
 var NAMESPACE = '@rill/active'
+var domain = require('domain')
 var prop = require('dot-prop')
-var createNamespace = require('continuation-local-storage').createNamespace
-var ns = createNamespace(NAMESPACE)
 
 /*
  * Expose middleware that keeps track of current context.
@@ -11,13 +10,12 @@ var ns = createNamespace(NAMESPACE)
  */
 module.exports = function () {
   return function activeMiddleware (ctx, next) {
-    ns.bindEmitter(ctx.req.original)
-    ns.bindEmitter(ctx.res.original)
     return new Promise(function (resolve) {
-      ns.run(function () {
-        ns.set('ctx', ctx)
-        resolve(next())
-      })
+      var d = domain.create()
+      d[NAMESPACE] = ctx
+      d.add(ctx.req.original)
+      d.add(ctx.res.original)
+      d.run(function () { resolve(next()) })
     })
   }
 }
@@ -28,20 +26,29 @@ module.exports.namespace = NAMESPACE
 /**
  * Get a value off of the current request context.
  */
-module.exports.get = function (key) {
-  return prop.get(ns.get('ctx'), key)
+module.exports.get = function (key, alt) {
+  return prop.get(getCtx(), key, alt)
 }
 
 /**
  * Check if a value exists on the current request context.
  */
 module.exports.has = function (key) {
-  return prop.has(ns.get('ctx'), key)
+  return prop.has(getCtx(), key)
 }
 
 /**
  * Set a value on the current request context.
  */
 module.exports.set = function (key, val) {
-  return prop.set(ns.get('ctx'), key, val)
+  return prop.set(getCtx(), key, val)
+}
+
+/**
+ * Returns the active context in domain.active
+ */
+function getCtx () {
+  var ctx = domain.active && domain.active[NAMESPACE]
+  if (!ctx) throw new Error('@rill/active: No active request running, could not retreive context.')
+  return ctx
 }

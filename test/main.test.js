@@ -3,24 +3,24 @@
 var test = require('tape')
 var agent = require('supertest').agent
 var rill = require('rill')
-var activeCLS = require('../server')
+var activeDomain = require('../server')
 var activeZone = require('../client')
 
-test('Sets active context between requests (CLS)', function (t) {
+test('Sets active context between requests (Domains)', function (t) {
   t.plan(2)
 
   var request = agent(rill()
-    .use(activeCLS())
+    .use(activeDomain())
     .get('/page1', function (ctx) {
       ctx.res.status = 200
       setTimeout(function () {
-        t.equals(activeCLS.get('req.pathname'), '/page1', 'got right path')
+        t.equals(activeDomain.get('req.pathname'), '/page1', 'got right path')
       }, 100)
     })
     .get('/page2', function (ctx) {
       ctx.res.status = 200
       setTimeout(function () {
-        t.equals(activeCLS.get('req.pathname'), '/page2', 'got right path')
+        t.equals(activeDomain.get('req.pathname'), '/page2', 'got right path')
       }, 50)
     })
     .listen().unref())
