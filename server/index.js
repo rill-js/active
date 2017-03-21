@@ -8,7 +8,7 @@ var prop = require('dot-prop')
  * Expose middleware that keeps track of current context.
  * (Uses async-listener to keep track of continuation local storage).
  */
-module.exports = function () {
+module.exports = exports = function () {
   return function activeMiddleware (ctx, next) {
     return new Promise(function (resolve) {
       var d = domain.create()
@@ -21,26 +21,26 @@ module.exports = function () {
 }
 
 // Expose namespace.
-module.exports.namespace = NAMESPACE
+exports.namespace = NAMESPACE
 
 /**
  * Get a value off of the current request context.
  */
-module.exports.get = function (key, alt) {
+exports.get = function (key, alt) {
   return prop.get(getCtx(), key, alt)
 }
 
 /**
  * Check if a value exists on the current request context.
  */
-module.exports.has = function (key) {
+exports.has = function (key) {
   return prop.has(getCtx(), key)
 }
 
 /**
  * Set a value on the current request context.
  */
-module.exports.set = function (key, val) {
+exports.set = function (key, val) {
   return prop.set(getCtx(), key, val)
 }
 
