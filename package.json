@@ -6,12 +6,12 @@
   "bugs": "https://github.com/rill-js/active/issues",
   "dependencies": {
     "dot-prop": "^4.1.1",
-    "zone.js": "^0.8.5"
+    "zone.js": "^0.8.11"
   },
   "devDependencies": {
-    "rill": "^4.3.3",
+    "rill": "^5.0.0",
     "snazzy": "^7.0.0",
-    "standard": "^10.0.1",
+    "standard": "^10.0.2",
     "supertest": "^3.0.0",
     "tap-spec": "^4.1.1",
     "tape": "^4.6.3"

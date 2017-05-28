@@ -13,13 +13,13 @@ test('Sets active context between requests (Zone.js)', function (t) {
     .get('/page1', function (ctx) {
       ctx.res.status = 200
       setTimeout(function () {
-        t.equals(activeZone.get('req.pathname'), '/page1', 'got right path')
+        t.equals(activeZone.get('req.pathname'), '/page1', 'got right path /page1')
       }, 100)
     })
     .get('/page2', function (ctx) {
       ctx.res.status = 200
       setTimeout(function () {
-        t.equals(activeZone.get('req.pathname'), '/page2', 'got right path')
+        t.equals(activeZone.get('req.pathname'), '/page2', 'got right path /page2')
       }, 50)
     })
     .listen().unref())
