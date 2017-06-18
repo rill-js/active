@@ -10,7 +10,7 @@ var Zone = require('zone.js') && global.Zone
 module.exports = exports = function () {
   return function activeMiddleware (ctx, next) {
     return new Promise(function (resolve) {
-      Zone.current.fork({
+      Zone.root.fork({
         name: '@rill/active',
         properties: { ctx: ctx }
       }).run(function () { resolve(next()) })
