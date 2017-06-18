@@ -6,7 +6,7 @@
   "bugs": "https://github.com/rill-js/active/issues",
   "dependencies": {
     "dot-prop": "^4.1.1",
-    "zone.js": "^0.8.11"
+    "zone.js": "^0.8.12"
   },
   "devDependencies": {
     "rill": "^5.0.0",
