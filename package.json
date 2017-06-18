@@ -1,7 +1,7 @@
 {
   "name": "@rill/active",
   "description": "Get the active Rill context using Zone.js.",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "author": "Dylan Piercey <pierceydylan@gmail.com>",
   "bugs": "https://github.com/rill-js/active/issues",
   "dependencies": {
